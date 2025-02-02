@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Busqueda por Nombre, apellido y ciudad</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input [(ngModel)]="nombre" placeholder="Introduce el nombre a buscar"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Apellido</ion-label>
+    <ion-input [(ngModel)]="last_name" placeholder="Introduce el nombre a buscar"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Ciudad</ion-label>
+    <ion-input [(ngModel)]="city" placeholder="Introduce el nombre a buscar"></ion-input>
+  </ion-item>
+
+
+    <ion-button expand="block" (click)="search()">Buscar</ion-button> 
+
+</ion-content>
