@@ -10,97 +10,117 @@ export class ApiServiceProvider {
 
    }
 
-   //http://localhost:3000/alumnos?first_name=Paolo
 
+   // Insertar un nuevo alumno
 
-
-  // busqueda por 1 solo valor y case sensitive
-   buscarAlumnosPorNombre(nombre: string): Promise<Alumno[]> {
-      console.log("esto llega"+nombre);
-      let alumnos = []
-      return new Promise<Alumno[]>((resolve, reject) => {
-          this.http.get(`${this.URL}/alumnos`).toPromise()
-              .then((data: any) => {
-                  alumnos = new Array<Alumno>();
-
-                  data.forEach((alumno: Alumno) => {
-
-                     console.log("en baja "+alumno.first_name.toLocaleLowerCase())
-
-                     if( alumno.first_name.toLocaleLowerCase() === nombre.toLocaleLowerCase()){
-                        alumnos.push(alumno);
-                     }
-
-                  });
-                  resolve(alumnos);
-              })
-              .catch((error: Error) => {
-                  reject(error.message);
-              });
-      });
-  }
-
-  
-  buscarAlumnosPorNombreApellidoCiudad(nombre: string, apellido: string, ciudad: string): Promise<Alumno[]> {
-
-  //console.log("llega esto: "+nombre+" "+apellido+" "+ciudad );
-   return new Promise<Alumno[]>((resolve, reject) => {
-       this.http.get(`${this.URL}/alumnos`).toPromise()
-           .then((data: any) => {
-               let alumnos = new Array<Alumno>();
-               data.forEach((alumno: Alumno) => {
-                  
-                  // conversion a minusculas 
-                  if (
-                     (alumno.first_name.toLocaleLowerCase() ===  nombre.toLocaleLowerCase()) || 
-                     (alumno.last_name.toLocaleLowerCase() ===  apellido.toLocaleLowerCase()) ||
-                     (alumno.city.toLocaleLowerCase() ===  ciudad.toLocaleLowerCase())
-                  )
-                  alumnos.push(alumno);
-               });
-               resolve(alumnos);
-           })
-           .catch((error: Error) => {
+   insertarAlumno(alumno: Alumno): Promise<Boolean> {
+      return new Promise<Boolean>((resolve, reject) => {
+         this.http.post(this.URL + "/alumnos", alumno).toPromise().then(
+            (data: any) => {
+               console.log(data);
+               resolve(true);
+            }
+         )
+            .catch((error: Error) => {
+               console.log(error.message);
                reject(error.message);
-           });
-   });
-}
-
-/*
-buscarAlumnosPorNombreApellidoCiudad(nombre: string, apellido: string, ciudad: string): Promise<Alumno[]> {
-   console.log("llega esto: "+nombre+" "+apellido+" "+ciudad );
-      return new Promise<Alumno[]>((resolve, reject) => {
-          this.http.get(`${this.URL}/alumnos?first_name=${nombre}&last_name=${apellido}&city=${ciudad}`).toPromise()
-              .then((data: any) => {
-                  let alumnos = new Array<Alumno>();
-                  data.forEach((alumno: Alumno) => {
-                      alumnos.push(alumno);
-                  });
-                  resolve(alumnos);
-              })
-              .catch((error: Error) => {
-                  reject(error.message);
-              });
+            });
       });
    }
-*/
+
+
+   
+
+
+
+   //http://localhost:3000/alumnos?first_name=Paolo
+   // busqueda por 1 solo valor y case sensitive
+   buscarAlumnosPorNombre(nombre: string): Promise<Alumno[]> {
+      console.log("esto llega" + nombre);
+      let alumnos = []
+      return new Promise<Alumno[]>((resolve, reject) => {
+         this.http.get(`${this.URL}/alumnos`).toPromise()
+            .then((data: any) => {
+               alumnos = new Array<Alumno>();
+
+               data.forEach((alumno: Alumno) => {
+
+                  console.log("en baja " + alumno.first_name.toLocaleLowerCase())
+
+                  if (alumno.first_name.toLocaleLowerCase() === nombre.toLocaleLowerCase()) {
+                     alumnos.push(alumno);
+                  }
+
+               });
+               resolve(alumnos);
+            })
+            .catch((error: Error) => {
+               reject(error.message);
+            });
+      });
+   }
+
+
+   buscarAlumnosPorNombreApellidoCiudad(nombre: string, apellido: string, ciudad: string): Promise<Alumno[]> {
+
+      //console.log("llega esto: "+nombre+" "+apellido+" "+ciudad );
+      return new Promise<Alumno[]>((resolve, reject) => {
+         this.http.get(`${this.URL}/alumnos`).toPromise()
+            .then((data: any) => {
+               let alumnos = new Array<Alumno>();
+               data.forEach((alumno: Alumno) => {
+
+                  // conversion a minusculas 
+                  if (
+                     (alumno.first_name.toLocaleLowerCase() === nombre.toLocaleLowerCase()) ||
+                     (alumno.last_name.toLocaleLowerCase() === apellido.toLocaleLowerCase()) ||
+                     (alumno.city.toLocaleLowerCase() === ciudad.toLocaleLowerCase())
+                  )
+                     alumnos.push(alumno);
+               });
+               resolve(alumnos);
+            })
+            .catch((error: Error) => {
+               reject(error.message);
+            });
+      });
+   }
+
+   /*
+   buscarAlumnosPorNombreApellidoCiudad(nombre: string, apellido: string, ciudad: string): Promise<Alumno[]> {
+      console.log("llega esto: "+nombre+" "+apellido+" "+ciudad );
+         return new Promise<Alumno[]>((resolve, reject) => {
+             this.http.get(`${this.URL}/alumnos?first_name=${nombre}&last_name=${apellido}&city=${ciudad}`).toPromise()
+                 .then((data: any) => {
+                     let alumnos = new Array<Alumno>();
+                     data.forEach((alumno: Alumno) => {
+                         alumnos.push(alumno);
+                     });
+                     resolve(alumnos);
+                 })
+                 .catch((error: Error) => {
+                     reject(error.message);
+                 });
+         });
+      }
+   */
 
 
    buscarAlumnosPorNombreApellido(nombre: string, apellido: string): Promise<Alumno[]> {
       return new Promise<Alumno[]>((resolve, reject) => {
-          this.http.get(`${this.URL}/alumnos?first_name=${nombre}&last_name=${apellido}`).toPromise()
-              .then((data: any) => {
-                  let alumnos = new Array<Alumno>();
-                  data.forEach((alumno: Alumno) => {
-                      alumnos.push(alumno);
-                  });
-                  resolve(alumnos);
-              })
-              .catch((error: Error) => {
-                  reject(error.message);
-              });
+         this.http.get(`${this.URL}/alumnos?first_name=${nombre}&last_name=${apellido}`).toPromise()
+            .then((data: any) => {
+               let alumnos = new Array<Alumno>();
+               data.forEach((alumno: Alumno) => {
+                  alumnos.push(alumno);
+               });
+               resolve(alumnos);
+            })
+            .catch((error: Error) => {
+               reject(error.message);
+            });
       });
-  }
+   }
 
 
    getAlumnos(): Promise<Alumno[]> {
@@ -169,21 +189,21 @@ buscarAlumnosPorNombreApellidoCiudad(nombre: string, apellido: string, ciudad: s
    //PAGINACION
    getAlumnosPaginados(start: number, end: number): Promise<Alumno[]> {
       return new Promise<Alumno[]>((resolve, reject) => {
-          this.http.get(`${this.URL}/alumnos?_start=${start}&_end=${end}&_sort=id`).toPromise()
-              .then((data: any) => {
-                  let alumnos = new Array<Alumno>();
-                  console.log(`${this.URL}/alumnos?_start=${start}&_end=${end}`);
-                  data.forEach((alumno: Alumno) => {
-                      alumnos.push(alumno);
-                  });
-                  resolve(alumnos);
-                 
-              })
-              .catch((error: Error) => {
-                  reject(error.message);
-              });
+         this.http.get(`${this.URL}/alumnos?_start=${start}&_end=${end}&_sort=id`).toPromise()
+            .then((data: any) => {
+               let alumnos = new Array<Alumno>();
+               console.log(`${this.URL}/alumnos?_start=${start}&_end=${end}`);
+               data.forEach((alumno: Alumno) => {
+                  alumnos.push(alumno);
+               });
+               resolve(alumnos);
+
+            })
+            .catch((error: Error) => {
+               reject(error.message);
+            });
       });
-  }
+   }
 
 
 
