@@ -169,7 +169,7 @@ export class ApiServiceProvider {
    Si el borrado va mal se sale con reject, devolviendo el mensaje de error que nos llega
    */
 
-   eliminarAlumno(id: number): Promise<Boolean> {
+   eliminarAlumno(id: string): Promise<Boolean> {
       let promise = new Promise<Boolean>((resolve, reject) => {
          this.http.delete(this.URL + "/alumnos/" + id).toPromise().then(
             (data: any) => { // Success

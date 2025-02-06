@@ -235,11 +235,12 @@ buscarAlumnosNombre(nombre: string) {
   lo que hará que deje de verse en la vista.
   Si el borrado ha ido mal muestro por consola el error que ha ocurrido. */
 
-  eliminarAlumno(indice: number) {
-    this.apiService.eliminarAlumno(this.alumnos[indice].id)
+  eliminarAlumno(indice: string) {
+    let aux = parseInt(indice);
+    this.apiService.eliminarAlumno(this.alumnos[aux].id)
       .then((correcto: Boolean) => {
         console.log("Borrado correcto del alumno con indice: " + indice);
-        this.alumnos.splice(indice, 1);
+        this.alumnos.splice(aux, 1);
       })
   }
 
@@ -392,7 +393,7 @@ buscarAlumnosNombre(nombre: string) {
            text: 'Insertar',
            handler: (data) => {
              const nuevoAlumno: Alumno = {
-               id: Math.floor(Math.random() * 10000), // Genera un ID aleatorio
+               id:  String(Math.floor(Math.random() * 10000)), // Genera un ID aleatorio
                first_name: data.first_name,
                last_name: data.last_name,
                email: data.email,
