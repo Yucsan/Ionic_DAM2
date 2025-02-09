@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      POKEMON FERNANDO
+    </ion-title>
+
+    <ion-buttons slot="end" >
+    
+
+    <div style="display: flex; align-items: center;">
+      <ion-button (click)="abrirModalBusqueda()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <span> BUSQUEDA </span>
+    </div>
+
+    </ion-buttons>
+
+
+
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-col  size="12" size-md="3" *ngFor="let poke of pokemons; let indice=index;">
+          <ion-card class="carta" >
+            <ion-card-header>
+              
+              <!-- [pagination]="{ clickable: true }"   [navigation]="true"-->
+              <swiper-container [loop]="true" class="swiper2" [pagination]="{ clickable: true }">
+              <swiper-slide> <img class="poke2" alt="{{poke.name}} gif" src="{{poke.frente}}" /></swiper-slide>
+              <swiper-slide><img class="poke2" alt="{{poke.name}} gif" src="{{poke.espalda}}" /></swiper-slide>
+              </swiper-container>
+            
+              <ion-card-title>{{poke.name}}</ion-card-title>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <button (click)="goToDetalles(poke.id)" class="detalles">Details</button>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+
+
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="goToFirstPage()">Primera</ion-button>
+            <ion-button (click)="goToPreviousPage()">Anterior</ion-button>
+          </ion-buttons>
+          <ion-title>Página {{currentPage}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="goToNextPage()">Siguiente</ion-button>
+            <ion-button (click)="goToLastPage()">Última</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <section class="footerPoke">
+          <h6>Pokemon App Fernando Chang 2025</h6>
+        </section>
+      </ion-footer>
+
+    </ion-grid>
+
+
+
+
+</ion-content>
